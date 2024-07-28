@@ -1,0 +1,41 @@
+// pasta Componets
+
+// arquivo index.js
+
+import { styled } styled-componets crio um arquivo js
+
+export const ButtonStyled = styled.button `
+
+  // estilos propios
+`
+
+// na index.jsx
+
+
+// todo componente tera a sua propia pasta 
+// porem as pastas tem que começar com a letra maiuscula
+// cada pasta tera seu index.jsx e styles.js
+
+
+import { Button }  from './styles.js'
+
+// no index é uma função que retorna um html de formato componente
+// porem o nome da função não pode ser igual ao estilo do componente que for criado
+
+
+function ButtonPrimary() {
+ return (
+     <>
+       <ButtonStyled></ButtonStyled>
+     </>
+  )
+}
+
+// quando exportamos o componente fica visivel em todo o projeto
+export default ButtonPrimary
+
+
+
+
+
+

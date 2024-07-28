@@ -1,0 +1,76 @@
+Para instalar o Java no Ubuntu, você pode seguir um tutorial passo a passo. Este tutorial cobrirá a instalação do OpenJDK, que é uma implementação gratuita e de código aberto da plataforma Java. O processo é simples e pode ser feito através do terminal.
+
+### Passo 1: Atualize o Pacote de Índices do Sistema
+
+Antes de instalar qualquer novo pacote, é uma boa prática atualizar o índice de pacotes do seu sistema. Isso garante que você esteja instalando as versões mais recentes disponíveis.
+
+```bash
+sudo apt update
+```
+
+### Passo 2: Instale o OpenJDK
+
+O Ubuntu possui várias versões do OpenJDK disponíveis nos seus repositórios. Você pode escolher instalar o OpenJDK 11, que é uma versão LTS (Long Term Support), ou outra versão que preferir. Para este tutorial, vamos instalar o OpenJDK 11.
+
+```bash
+sudo apt install openjdk-11-jdk
+```
+
+### Passo 3: Verifique a Instalação
+
+Após a instalação, você pode verificar se o Java foi instalado corretamente verificando a versão instalada.
+
+```bash
+java -version
+```
+
+A saída deve mostrar a versão do Java que você acabou de instalar.
+
+### Passo 4: Configurar JAVA_HOME
+
+Para muitas aplicações Java, incluindo ferramentas de desenvolvimento e servidores, é necessário definir a variável de ambiente `JAVA_HOME`. Esta variável aponta para o diretório de instalação do JDK.
+
+1. **Encontre o Caminho do JDK**
+
+   Primeiro, você precisa encontrar o caminho onde o JDK foi instalado. O comando a seguir pode ajudá-lo a localizar o caminho.
+
+   ```bash
+   update-java-alternatives -l
+   ```
+
+2. **Defina JAVA_HOME**
+
+   Com o caminho do JDK, você pode adicionar a variável `JAVA_HOME` ao seu arquivo `.bashrc` ou `.profile`.
+
+   - Abra o arquivo `.bashrc` no seu editor de texto preferido. Aqui, usaremos o `nano`.
+
+     ```bash
+     nano ~/.bashrc
+     ```
+
+   - Adicione a seguinte linha ao final do arquivo, substituindo `/caminho/para/jdk` pelo caminho real encontrado anteriormente.
+
+     ```bash
+     export JAVA_HOME=/caminho/para/jdk
+     export PATH=$JAVA_HOME/bin:$PATH
+     ```
+
+   - Salve e feche o arquivo. Aplique as mudanças com o comando:
+
+     ```bash
+     source ~/.bashrc
+     ```
+
+3. **Verifique a Variável JAVA_HOME**
+
+   Para garantir que a variável `JAVA_HOME` foi configurada corretamente, execute:
+
+   ```bash
+   echo $JAVA_HOME
+   ```
+
+   A saída deve ser o caminho que você definiu para o JDK.
+
+### Conclusão
+
+Seguindo estes passos, você terá o Java instalado e configurado no seu sistema Ubuntu. Isso inclui a instalação do JDK, verificação da instalação, e configuração da variável de ambiente `JAVA_HOME`. Com o Java devidamente instalado, você está pronto para desenvolver aplicações Java ou executar software que dependa do Java no seu sistema.

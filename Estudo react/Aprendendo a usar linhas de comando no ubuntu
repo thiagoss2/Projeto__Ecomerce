@@ -1,0 +1,18 @@
+comado para extrair arquivos tar
+
+sudo tar -xzvf 'caminho do pacote tar.gz'
+
+comando para criar pastas  no ubuntu
+
+sudo mkdir 'nome da pasta' 
+
+comando para mover pastas sudo mv 'nome da pasta ' ' caminho para mover'
+
+ 
+ criar um link sinbolico sudo ln -s 'caminho do arquivo/nomeDoSeuArquivo'
+ 
+ editando as variaves de ambiente java
+ 
+ JAVA_HOME=/usr/lib/jvm/latest
+JRE_HOME=/usr/lib/jvm/latest/jre
+PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin

@@ -1,0 +1,293 @@
+9 DE JUNHO DE 2024
+
+
+codigo base do estudo 
+
+@Override
+public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null || this.getClass() != obj.getClass()) return false;
+    Produto produto = (Produto) obj;
+    return Double.compare(produto.preco, this.preco) == 0 &&              this.nome.equals(produto.nome);
+    
+    
+        // meu codigo
+   return this.nome.equals(produto.getNome()) && this.getPreco() == produto.getPrecol();
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(nome, preco);
+}
+
+ENTENDENDO O GETCLASS
+
+Para lançar uma exceção quando dois produtos são iguais, você pode sobrescrever o método `equals` na classe `Produto` para comparar o nome e o preço do produto. Em seguida, você pode verificar a igualdade dos produtos no seu método `main` e lançar uma exceção se eles forem iguais.
+
+Aqui está como você pode fazer isso:
+
+Na classe `Produto`:
+
+```java
+@Override
+public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null || getClass() != obj.getClass()) return false;
+    Produto produto = (Produto) obj;
+    return Double.compare(produto.preco, preco) == 0 && nome.equals(produto.nome);
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(nome, preco);
+}
+```
+
+No método `main`:
+
+```java
+public static void main(String[] args) {
+    Produto produto1 = new Produto("Tapete" , 500.00 , new GeradorProdutoID(new Random()));
+    Produto produto2 = new Produto("Tapete" , 500.00 , new GeradorProdutoID(new Random()));
+
+    if (produto1.equals(produto2)) {
+        throw new IllegalArgumentException("Produtos iguais não são permitidos");
+    }
+
+    System.out.println(produto1.getId());
+    System.out.println(produto2.getId());
+}
+```
+
+Neste código, se `produto1` e `produto2` tiverem o mesmo nome e preço, uma `IllegalArgumentException` será lançada com a mensagem "Produtos iguais não são permitidos".
+
+OUTRA PER
+
+
+Não, o método `getClass()` não retorna o caminho do pacote da classe. Ele retorna uma instância da classe `Class` que representa a classe do objeto em tempo de execução.
+
+Se você quiser obter o nome completo da classe, incluindo o nome do pacote, você pode chamar o método `getName()` na instância da classe `Class` retornada por `getClass()`. Aqui está como você pode fazer isso:
+
+```java
+System.out.println(produto.getClass().getName());
+```
+
+Este código imprimirá o nome completo da classe, incluindo o nome do pacote, para o objeto `produto`.
+
+Se você quiser apenas o nome simples da classe (sem o nome do pacote), você pode usar o método `getSimpleName()`:
+
+```java
+System.out.println(produto.getClass().getSimpleName());
+```
+
+Este código imprimirá apenas o nome simples da classe para o objeto `produto`.
+
+
+
+
+
+Pergunta
+
+o método getClass() não retorna o caminho do pacote da classe. Ele retorna uma instância da classe Class que representa a classe do objeto em tempo de execução. como assim?
+
+
+Quando você chama o método `getClass()` em um objeto, ele retorna uma instância da classe `Class` que representa a classe do objeto. Essa instância contém metadados sobre a classe, como seu nome, seus métodos, seus campos, etc.
+
+Por exemplo, se você tem um objeto `produto` que é uma instância da classe `Produto`, quando você chama `produto.getClass()`, ele retorna uma instância da classe `Class` que representa a classe `Produto`.
+
+Aqui está um exemplo de como você pode usar isso:
+
+```java
+Produto produto = new Produto("Tapete" , 500.00 , new GeradorProdutoID(new Random()));
+Class<?> classeDoProduto = produto.getClass();
+
+System.out.println("Nome da classe: " + classeDoProduto.getName());
+System.out.println("Nome simples da classe: " + classeDoProduto.getSimpleName());
+System.out.println("Pacote da classe: " + classeDoProduto.getPackage().getName());
+```
+
+Neste exemplo, `classeDoProduto.getName()` retorna o nome completo da classe (incluindo o nome do pacote), `classeDoProduto.getSimpleName()` retorna apenas o nome da classe (sem o nome do pacote), e `classeDoProduto.getPackage().getName()` retorna o nome do pacote da classe.
+
+Então, para responder à sua pergunta, `getClass()` não retorna o caminho do pacote da classe, mas você pode obter o nome do pacote da classe chamando `getPackage().getName()` na instância da classe `Class` retornada por `getClass()`.
+
+
+
+
+PORQUE ESSE CODIGO NÃO COMPILA
+
+ Class<Produto> classeDoProduto = produto2.getClass();
+ 
+ Class<Produto>  <- não pode compilar porque o retorno do metodo getClass() retorna um tipo desconhecido
+ ou seja um Object por isso tem um coringa <?> na representação do retorno do metodo
+ 
+ se vc souber  o tipo vc tem que fazer o cast
+ 
+ Class<Produto> classeDoProduto = (Class<Produto>) produto2.getClass();
+ 
+ 
+
+
+O método `getClass()` retorna uma instância de `Class<?>`, não `Class<Produto>`. O motivo é que `getClass()` é um método definido na classe `Object`, a classe mãe de todas as classes em Java, e portanto não tem conhecimento do tipo específico do objeto em tempo de compilação.
+
+Se você tentar atribuir o resultado de `getClass()` a uma variável do tipo `Class<Produto>`, você receberá um erro de compilação porque o compilador não pode garantir que o objeto é realmente um `Produto`.
+
+Se você tem certeza de que o objeto é um `Produto`, você pode fazer um cast para `Class<Produto>`, mas isso pode resultar em um `ClassCastException` em tempo de execução se o objeto não for realmente um `Produto`.
+
+Aqui está como você pode fazer o cast:
+
+```java
+Class<Produto> classeDoProduto = (Class<Produto>) produto2.getClass();
+```
+
+No entanto, na maioria dos casos, você deve evitar fazer esse tipo de cast e simplesmente usar `Class<?>` a menos que tenha um bom motivo para fazer o contrário.
+
+
+
+pergunta pra  que serve esse simbolo ?
+
+
+O símbolo `?` em Java é usado como um caractere curinga em genéricos. Ele representa um tipo desconhecido.
+
+Quando você vê `Class<?>`, isso significa "uma instância da classe `Class` que representa algum tipo desconhecido". Isso é útil quando você está trabalhando com métodos genéricos ou classes onde o tipo específico não é relevante.
+
+No caso do seu código:
+
+```java
+Class<?> classeDoProduto = produto2.getClass();
+```
+
+Isso está pegando a classe do objeto `produto2` e armazenando-a em `classeDoProduto`. O tipo específico de `produto2` não é relevante neste contexto, então usamos o caractere curinga `?` para representar "qualquer tipo".
+
+pergunta 
+
+tem algum outro caso onde isso acontece?
+
+
+
+
+Sim, o caractere curinga `?` é usado em várias situações em Java, especialmente quando se trabalha com genéricos. Aqui estão alguns exemplos:
+
+1. **Limites superiores do curinga**: Você pode usar o curinga com um limite superior para aceitar um tipo específico ou qualquer um de seus subtipos. Por exemplo, `List<? extends Number>` pode conter uma lista de `Number` ou qualquer subclasse de `Number` (como `Integer`, `Double`, etc.).
+
+```java
+List<? extends Number> numbers = new ArrayList<Integer>();
+```
+
+2. **Limites inferiores do curinga**: Você pode usar o curinga com um limite inferior para aceitar um tipo específico ou qualquer um de seus supertipos. Por exemplo, `List<? super Integer>` pode conter uma lista de `Integer` ou qualquer superclasse de `Integer` (como `Number` ou `Object`).
+
+List<? extends Conta> contas = new ArrayList<ContaPoupanca>(); <- limite superior
+List<? super ContaPoupanca> contas = new ArrayList<Conta>(); <- limite inferior
+
+```java
+List<? super Integer> integers = new ArrayList<Number>();
+```
+
+3. **Curingas não limitados**: Se você não sabe ou não se importa com o tipo específico de uma coleção, você pode usar um curinga não limitado. Por exemplo, `List<?>` pode conter uma lista de qualquer tipo.
+
+```java
+List<?> list = new ArrayList<String>();
+```
+
+4. **Parâmetros de método genérico**: Você pode usar curingas em parâmetros de método para aceitar argumentos de vários tipos. Por exemplo, o seguinte método pode aceitar uma lista de qualquer tipo:
+
+```java
+public void printList(List<?> list) {
+    for (Object item : list) {
+        System.out.println(item);
+    }
+}
+```
+
+E QUAL A DIFERENÇA ENTRE <T> E <>
+
+
+O `<T>` é um parâmetro de tipo genérico em Java. Ele é usado para especificar um tipo genérico quando você está definindo classes, interfaces ou métodos.
+
+Por exemplo, você pode definir uma classe genérica `Caixa` que pode conter qualquer tipo de objeto:
+
+```java
+public class Caixa<T> {
+    private T conteudo;
+
+    public void setConteudo(T conteudo) {
+        this.conteudo = conteudo;
+    }
+
+    public T getConteudo() {
+        return conteudo;
+    }
+}
+```
+
+Neste caso, `T` é um parâmetro de tipo que representa o tipo do conteúdo da caixa. Você pode criar uma `Caixa` para qualquer tipo de objeto:
+
+```java
+Caixa<String> caixaDeString = new Caixa<>();
+caixaDeString.setConteudo("Olá, mundo!");
+
+Caixa<Integer> caixaDeInteger = new Caixa<>();
+caixaDeInteger.setConteudo(123);
+```
+
+Por outro lado, o caractere curinga `?` é usado quando o tipo específico não é conhecido ou relevante. Por exemplo, se você tem um método que imprime qualquer tipo de lista, você pode usar `List<?>` para representar "uma lista de algum tipo desconhecido":
+
+```java
+public void imprimirLista(List<?> lista) {
+    for (Object item : lista) {
+        System.out.println(item);
+    }
+}
+```
+
+Neste caso, não importa qual é o tipo específico da lista, então usamos o caractere curinga `?` para representar isso.
+
+Então, para resumir:
+
+- Use `<T>` quando você está definindo classes, interfaces ou métodos genéricos e você quer especificar um tipo genérico.
+- Use `?` quando você está trabalhando com objetos genéricos e o tipo específico não é conhecido ou relevante.
+
+Esses são apenas alguns exemplos de como os curingas podem ser usados em Java. Eles são uma ferramenta poderosa para escrever código genérico e reutilizável.
+
+
+
+ ENTAO o ? coringa trabalha com o tipo object  e o T trabalha com o tipo especifico
+
+Sim, você está correto em sua compreensão.
+
+O caractere curinga `?` em Java é usado quando você não sabe ou não se importa com o tipo específico de um objeto. Ele é frequentemente usado em situações onde você está lidando com objetos que podem ser de qualquer tipo, e você está tratando-os como `Object` ou usando métodos definidos na classe `Object`.
+
+Por exemplo, no seguinte método:
+
+```java
+public void imprimirLista(List<?> lista) {
+    for (Object item : lista) {
+        System.out.println(item);
+    }
+}
+```
+
+A lista pode conter qualquer tipo de objeto, e estamos apenas chamando `System.out.println(item)`, que é um método que pode aceitar qualquer `Object`.
+
+Por outro lado, `T` é um parâmetro de tipo genérico que você usa quando está definindo uma classe, interface ou método genérico e você quer trabalhar com objetos de um tipo específico.
+
+Por exemplo, na seguinte classe genérica:
+
+```java
+public class Caixa<T> {
+    private T conteudo;
+
+    public void setConteudo(T conteudo) {
+        this.conteudo = conteudo;
+    }
+
+    public T getConteudo() {
+        return conteudo;
+    }
+}
+```
+
+`T` representa o tipo específico do conteúdo da caixa, e podemos chamar métodos ou acessar campos em `conteudo` que são específicos para o tipo `T`.
+
+Então, em resumo, use `?` quando você não sabe ou não se importa com o tipo específico de um objeto, e use `T` quando você quer trabalhar com objetos de um tipo específico em um contexto genérico.
+
+

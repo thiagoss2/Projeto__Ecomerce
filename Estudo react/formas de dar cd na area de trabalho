@@ -1,0 +1,43 @@
+Existem duas maneiras de acessar a Área de Trabalho pelo terminal no Ubuntu:
+
+**1. Usando o comando "cd":**
+
+* **Com acento:**
+
+```
+cd Área\ de\ Trabalho
+```
+
+* **Sem acento e com barra invertida:**
+
+```
+cd Area\ de\ Trabalho
+```
+
+* **Com aspas duplas:**
+
+```
+cd "Área de Trabalho"
+```
+
+**2. Usando o comando "cd" e o atalho "~":**
+
+```
+cd ~/Desktop
+```
+
+**Observações:**
+
+* O comando "cd" é usado para navegar entre os diretórios do sistema.
+* O til (~) representa o diretório home do usuário.
+* A Área de Trabalho é um subdiretório do diretório home.
+* Se você estiver usando um terminal gráfico, como o Gnome Terminal, você pode simplesmente clicar no ícone da Área de Trabalho na barra lateral para acessá-la.
+
+**Dicas:**
+
+* Se você não conseguir acessar a Área de Trabalho usando o comando "cd", verifique se o nome do diretório está correto.
+* Você pode usar o comando "ls" para listar os arquivos e diretórios do diretório atual.
+* Você pode usar o comando "pwd" para mostrar o diretório atual.
+
+**Espero que isso ajude!**
+

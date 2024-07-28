@@ -1,0 +1,25 @@
+Para desinstalar um programa no Ubuntu, você pode usar o comando `apt` no terminal. Aqui estão os passos:
+
+1. **Abrir o terminal**: Você pode abrir o terminal pressionando `Ctrl + Alt + T`.
+
+2. **Usar o comando `apt remove`**: Substitua `nome-do-programa` pelo nome do programa que você deseja desinstalar.
+
+```sh
+sudo apt remove nome-do-programa
+```
+
+3. **Remover pacotes não utilizados (opcional)**: Após a remoção, você pode limpar pacotes que não são mais necessários com o comando:
+
+```sh
+sudo apt autoremove
+```
+
+### Exemplo:
+Para desinstalar o programa `cerebro`, você faria:
+
+```sh
+sudo apt remove cerebro
+sudo apt autoremove
+```
+
+Isso deve desinstalar o programa do seu sistema.
